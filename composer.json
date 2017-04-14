@@ -1,0 +1,14 @@
+{
+    "name": "instantjay/salesmatephp",
+    "description": "Salesmate.io PHP Wrapper",
+    "autoload": {
+        "psr-4": {"instantjay\\salesmatephp\\": "src/"}
+    },
+    "require": {
+        "guzzlehttp/guzzle": "6.*",
+        "respect/validation": "1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.*"
+    }
+}
