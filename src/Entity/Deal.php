@@ -56,6 +56,14 @@ class Deal extends SalesmateEntity {
         $this->data['owner'] = $ownerId;
     }
 
+    public function getDescription() {
+        return $this->data['description'];
+    }
+
+    public function setDescription($description) {
+        $this->data['description'] = $description;
+    }
+
     /**
      * @param $primaryContactId int
      */
@@ -144,10 +152,6 @@ class Deal extends SalesmateEntity {
             throw new InvalidFormatException('Deal status must be Open, Won or Lost according to Salesmate API spec.');
 
         $this->data['status'] = $status;
-    }
-
-    public function getDescription() {
-        return $this->data['description'];
     }
 
     public function getTags() {

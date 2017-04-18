@@ -59,7 +59,7 @@ abstract class SalesmateEntity {
         return $path;
     }
 
-    protected function getId() {
+    public function getId() {
         return $this->data['id'];
     }
 
@@ -108,16 +108,4 @@ abstract class SalesmateEntity {
 
         return $response;
     }
-
-    /*
-    public function __get($propertyName) {
-        $this->getProperty($propertyName);
-    }
-
-    public function __set($propertyName, $value) {
-        $this->getProperty($propertyName);
-
-        $this->data[$propertyName] = $value;
-    }
-    */
 }
