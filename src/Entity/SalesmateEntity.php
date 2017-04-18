@@ -10,7 +10,6 @@ use Respect\Validation\Validator;
 
 abstract class SalesmateEntity {
     protected $path;
-    protected $id;
 
     /**
      * @var $data string[]
@@ -18,9 +17,9 @@ abstract class SalesmateEntity {
     protected $data;
 
     /**
-     * @var $properties string[]
+     * @var $availableProperties string[]
      */
-    protected $properties;
+    protected $availableProperties;
 
     /**
      * @var SalesmateConnection
@@ -28,10 +27,7 @@ abstract class SalesmateEntity {
     private $connection;
 
     public function __construct($data) {
-        $this->data;
-
-        if(!empty($this->data['id']))
-            $this->id = $this->data['id'];
+        $this->data = $data;
     }
 
     /**
@@ -39,10 +35,10 @@ abstract class SalesmateEntity {
      * @throws \Exception Thrown if object could not be mapped to anything saved on Salesmate
      */
     public function delete() {
-        if(!Validator::numeric()->validate($this->id))
+        if(!Validator::numeric()->validate($this->data['id']))
             throw new \Exception('Unknown object; missing id.');
 
-        $response = $this->commit('DELETE', $this->connection);
+        $response = $this->commit($this->connection, 'DELETE');
 
         return $response;
     }
@@ -51,13 +47,29 @@ abstract class SalesmateEntity {
         return $this->data;
     }
 
+    protected function getPath() {
+        $path = $this->path;
+
+        if(!empty($this->data['id'])) {
+            $id = $this->data['id'];
+
+            $path .= "/$id";
+        }
+
+        return $path;
+    }
+
+    protected function getId() {
+        return $this->data['id'];
+    }
+
     /**
      * @param null $propertyName
      * @return string|\string[]
      * @throws \Exception
      */
     protected function getProperty($propertyName) {
-        if(!in_array($propertyName, $this->properties))
+        if(!in_array($propertyName, $this->availableProperties))
             throw new \Exception('Property does not exist.');
 
         if(isset($this->data[$propertyName]))
@@ -71,23 +83,33 @@ abstract class SalesmateEntity {
      * @param $salesmateConnection SalesmateConnection
      * @returns SalesmateResponse
      */
-    public function commit($httpMethod, $salesmateConnection) {
-        $headers = [
-            'AppPrivateKey' => $salesmateConnection->getPrivatekey(),
-            'SessionToken' => $salesmateConnection->getSessionToken(),
-            'AppAccesskey' => $salesmateConnection->getAccessKey(),
-            'Content-Type' => 'application/json'
-        ];
+    public function commit($salesmateConnection, $httpMethod = null) {
+        // Guess the HTTP method
+        if($httpMethod == null) {
+            if(!empty($this->data['id']))
+                $httpMethod = 'PUT';
+            else
+                $httpMethod = 'POST';
+        }
 
         $client = new Client();
-        $request = new Request($httpMethod, $salesmateConnection->getUrl().$this->path, $headers, \GuzzleHttp\json_encode($this->getData(), JSON_NUMERIC_CHECK));
+
+        $payload = \GuzzleHttp\json_encode($this->getData(), JSON_NUMERIC_CHECK);
+
+        $request = new Request($httpMethod, $salesmateConnection->getUrl().$this->getPath(), $salesmateConnection->getRequestHeaders(), $payload);
         $response = $client->send($request);
 
         $response = new SalesmateResponse($response);
 
+        if($httpMethod == 'POST') { // We are submitting a new item. Let's update our object with the ID that we get back, so that we can use it right away.
+            $data = $response->getData();
+            $this->data['id'] = $data['id'];
+        }
+
         return $response;
     }
 
+    /*
     public function __get($propertyName) {
         $this->getProperty($propertyName);
     }
@@ -97,4 +119,5 @@ abstract class SalesmateEntity {
 
         $this->data[$propertyName] = $value;
     }
+    */
 }

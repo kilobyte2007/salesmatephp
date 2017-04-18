@@ -14,6 +14,10 @@ class SalesmateResponse {
     private $error;
     private $data;
 
+    /**
+     * SalesmateResponse constructor.
+     * @param Response $response
+     */
     public function __construct(Response $response)
     {
         $this->response = $response;
