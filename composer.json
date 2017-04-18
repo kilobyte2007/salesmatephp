@@ -1,6 +1,8 @@
 {
     "name": "instantjay/salesmatephp",
+    "type": "library",
     "description": "Salesmate.io PHP Wrapper",
+    "license": "MIT",
     "autoload": {
         "psr-4": {"instantjay\\salesmatephp\\": "src/"}
     },
