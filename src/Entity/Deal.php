@@ -2,7 +2,7 @@
 
 namespace instantjay\salesmatephp\entity;
 
-use instantjay\salesmatephp\exception\InvalidFormatException;
+use instantjay\salesmatephp\Exception\InvalidFormatException;
 
 class Deal extends SalesmateEntity {
     public function __construct($data = [])

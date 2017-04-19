@@ -1,6 +1,6 @@
 <?php
 
-namespace instantjay\salesmatephp\entity;
+namespace instantjay\salesmatephp\Entity;
 
 class User extends SalesmateEntity {
     public function __construct($data)

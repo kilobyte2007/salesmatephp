@@ -1,6 +1,6 @@
 <?php
 
-namespace instantjay\salesmatephp;
+namespace instantjay\salesmatephp\Exception;
 
 class MissingRequiredPropertyException extends \Exception {
 

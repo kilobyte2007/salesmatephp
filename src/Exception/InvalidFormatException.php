@@ -1,6 +1,6 @@
 <?php
 
-namespace instantjay\salesmatephp\exception;
+namespace instantjay\salesmatephp\Exception;
 
 class InvalidFormatException extends \Exception {
 

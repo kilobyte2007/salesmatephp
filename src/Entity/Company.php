@@ -1,16 +1,12 @@
 <?php
 
-namespace instantjay\salesmatephp\entity;
+namespace instantjay\salesmatephp\Entity;
 
 class Company extends SalesmateEntity {
-    public function __construct($url)
+    public function __construct($data)
     {
         $this->path = '/companies';
 
-        parent::__construct();
-    }
-
-    protected function getBody() {
-
+        parent::__construct($data);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace instantjay\salesmatephp\entity;
+namespace instantjay\salesmatephp\Entity;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
