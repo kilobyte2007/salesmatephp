@@ -3,7 +3,6 @@
 namespace instantjay\salesmatephp;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use instantjay\salesmatephp\exception\InvalidFormatException;
 use Respect\Validation\Validator;
 
@@ -57,9 +56,9 @@ class SalesmateConnection {
         return $this->accessKey;
     }
 
-    public function getHttpClient() {
+    public function getHttpClient($timeout = 10) {
         $client = new Client([
-            'timeout' => 10,
+            'timeout' => $timeout,
             'headers' => $this->getRequestHeaders()
         ]);
 

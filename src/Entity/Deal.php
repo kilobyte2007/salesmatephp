@@ -3,7 +3,6 @@
 namespace instantjay\salesmatephp\entity;
 
 use instantjay\salesmatephp\exception\InvalidFormatException;
-use instantjay\salesmatephp\MissingCompulsoryPropertyException;
 
 class Deal extends SalesmateEntity {
     public function __construct($data = [])
@@ -111,8 +110,16 @@ class Deal extends SalesmateEntity {
         return $this->data['dealValue'];
     }
 
+    public function setDealValue($value) {
+        $this->data['dealValue'] = $value;
+    }
+
     public function getCurrency() {
         return $this->data['currency'];
+    }
+
+    public function setCurrency($currencyCode) {
+        $this->data['currency'] = $currencyCode;
     }
 
     public function getPipeline() {
