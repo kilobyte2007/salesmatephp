@@ -1,6 +1,6 @@
 <?php
 
-namespace instantjay\salesmatephp\entity;
+namespace instantjay\salesmatephp\Entity;
 
 use instantjay\salesmatephp\Exception\InvalidFormatException;
 
