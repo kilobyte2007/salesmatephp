@@ -3,8 +3,8 @@
 namespace instantjay\salesmatephp;
 
 use GuzzleHttp\Psr7\Request;
-use instantjay\salesmatephp\entity\Deal;
-use instantjay\salesmatephp\entity\User;
+use instantjay\salesmatephp\Entity\Deal;
+use instantjay\salesmatephp\Entity\User;
 
 class Salesmate {
     const PIPELINE_EDITABLE_FIELD_ID = 69;
