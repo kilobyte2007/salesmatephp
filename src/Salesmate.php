@@ -56,7 +56,7 @@ class Salesmate {
         if(!$salesmateResponse->isSuccessful())
             throw new EmptyResultException();
 
-        return new Deal($salesmateResponse->getData());
+        return new Deal($salesmateResponse->getData()[0]);
     }
 
     private function getEditableFields() {
